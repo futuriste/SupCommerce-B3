@@ -1,74 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  
   <display-name>SupCommerce</display-name>
+  
   <welcome-file-list>
     <welcome-file>auth/index.html</welcome-file>
   </welcome-file-list>
   
-  <!-- SERVLETS -->
-  <servlet>
-    <servlet-name>InsertSomeProductServlet</servlet-name>
-    <servlet-class>
-  		com.supinfo.supcommerce.servlets.InsertSomeProductServlet
-    </servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>ListProductsServlet</servlet-name>
-    <servlet-class>
-  		com.supinfo.supcommerce.servlets.ListProductsServlet
-    </servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>ShowProductServlet</servlet-name>
-    <servlet-class>
-  		com.supinfo.supcommerce.servlets.ShowProductServlet
-    </servlet-class>
-  </servlet>
-  
-  <servlet>
-    <servlet-name>LoginServlet</servlet-name>
-    <servlet-class>
-  		com.supinfo.supcommerce.servlets.LoginServlet
-    </servlet-class>
-  </servlet>
-  
-  
-  <!-- FILTERS -->
-  <filter>
-  	<filter-name>AuthenticateFilter</filter-name>
-  	<filter-class>com.supinfo.supcommerce.filters.AuthenticateFilter</filter-class>
-  </filter>
-  
-  
-  <!-- SERVLETS MAPPINGS -->
-  <servlet-mapping>
-    <servlet-name>InsertSomeProductServlet</servlet-name>
-    <url-pattern>/auth/basicInsert</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>ListProductsServlet</servlet-name>
-    <url-pattern>/auth/listProducts</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>ShowProductServlet</servlet-name>
-    <url-pattern>/auth/showProduct</url-pattern>
-  </servlet-mapping>
-  
-  <servlet-mapping>
-    <servlet-name>LoginServlet</servlet-name>
-    <url-pattern>/login</url-pattern>
-  </servlet-mapping>
-  
-  
-  <!-- FILTERS MAPPINGS -->
-  <filter-mapping>
-  	<filter-name>AuthenticateFilter</filter-name>
-  	<url-pattern>/auth/*</url-pattern>
-  </filter-mapping>
 </web-app>
 
 

@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 
+@WebServlet(urlPatterns = "/auth/listProducts")
 public class ListProductsServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp)
@@ -38,11 +41,12 @@ public class ListProductsServlet extends HttpServlet {
 			out.println("<td>" + p.getId() + "</td>");
 			out.println("<td>" + p.getName() + "</td>");
 			out.println("<td>" + p.getPrice() + "</td>");
-			out.println("<td><a href='/SupCommerce/auth/showProduct?id=" + p.getId() + "'>Voir</a></td>");
+			out.println("<td><a href='" + req.getServletContext().getContextPath() + "/auth/showProduct?id=" + p.getId() + "'>Voir</a></td>");
 			out.println("</tr>");
 		}
 		
 		out.println("</table>");
+		out.println("<br/><a href='" + req.getServletContext().getContextPath() + "/auth/basicInsert'>Ajouter un produit</a>");
 		out.println("</body>");
 	}
 

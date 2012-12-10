@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 
+@WebServlet(urlPatterns = "/auth/basicInsert")
 public class InsertSomeProductServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	protected void service(HttpServletRequest req, 
@@ -26,24 +29,7 @@ public class InsertSomeProductServlet extends HttpServlet {
 		
 		SupProductDao.addProduct(product);
 		
-		resp.setContentType("text/html;charset=utf-8");
-		PrintWriter out = resp.getWriter();
-		
-		out.println("<html>");
-		out.println("<head>" +
-				"<title>Add Product</title>" +
-				"<meta charset='utf-8'>" +
-				"</head>");
-		out.println("<body>");
-		out.println("<p>Produit ajouté !</p>");
-		
-		req.setAttribute("test", "toto");
-		
-		RequestDispatcher rd = req.getRequestDispatcher("/auth/listProducts");
-		rd.forward(req, resp);
-		
-		out.println("<h2>After list !!!</h2>");
-		out.println("</body>");
+		resp.sendRedirect(req.getServletContext().getContextPath() + "/auth/listProducts");
 	}
 
 	

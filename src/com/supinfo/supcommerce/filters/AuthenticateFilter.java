@@ -9,8 +9,10 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+@WebFilter(urlPatterns = "/auth/*")
 public class AuthenticateFilter implements Filter {
 
 

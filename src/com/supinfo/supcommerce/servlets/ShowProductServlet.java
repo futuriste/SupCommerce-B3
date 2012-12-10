@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 
+@WebServlet(urlPatterns = "/auth/showProduct")
 public class ShowProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
