@@ -3,6 +3,7 @@ package com.supinfo.supcommerce.servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +36,20 @@ public class InsertSomeProductServlet extends HttpServlet {
 				"</head>");
 		out.println("<body>");
 		out.println("<p>Produit ajouté !</p>");
+		
+		req.setAttribute("test", "toto");
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/auth/listProducts");
+		rd.forward(req, resp);
+		
+		out.println("<h2>After list !!!</h2>");
 		out.println("</body>");
 	}
 
 	
 }
+
+
+
+
+

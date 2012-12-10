@@ -29,7 +29,7 @@ public class ListProductsServlet extends HttpServlet {
 				"<meta charset='utf-8'>" +
 				"</head>");
 		out.println("<body>");
-		out.println("<h1>Liste des produits :</h1>");
+		out.println("<h1>Liste des produits : " + req.getAttribute("test") + "</h1>");
 		out.println("<table>");
 		out.println("<tr><th>ID</th><th>Nom</th><th>Prix (€)</th><th>Action</th></tr>");
 		
@@ -38,7 +38,7 @@ public class ListProductsServlet extends HttpServlet {
 			out.println("<td>" + p.getId() + "</td>");
 			out.println("<td>" + p.getName() + "</td>");
 			out.println("<td>" + p.getPrice() + "</td>");
-			out.println("<td><a href='/SupCommerce/showProduct?id=" + p.getId() + "'>Voir</a></td>");
+			out.println("<td><a href='/SupCommerce/auth/showProduct?id=" + p.getId() + "'>Voir</a></td>");
 			out.println("</tr>");
 		}
 		
