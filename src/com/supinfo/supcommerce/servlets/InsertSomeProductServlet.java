@@ -29,7 +29,7 @@ public class InsertSomeProductServlet extends HttpServlet {
 		
 		SupProductDao.addProduct(product);
 		
-		resp.sendRedirect(req.getServletContext().getContextPath() + "/auth/listProducts");
+		resp.sendRedirect(req.getServletContext().getContextPath() + "/listProducts");
 	}
 
 	
