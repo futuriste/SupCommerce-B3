@@ -18,9 +18,10 @@ public class LogoutServlet extends HttpServlet {
 			throws ServletException, IOException {
 		
 		HttpSession session = req.getSession();
-		session.removeAttribute("user");
+		session.removeAttribute("username");
+		session.removeAttribute("userEmail");
 		
-		resp.sendRedirect(req.getServletContext().getContextPath() + "/login.html");
+		resp.sendRedirect(req.getServletContext().getContextPath() + "/login");
 	}
 
 }

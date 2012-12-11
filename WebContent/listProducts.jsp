@@ -1,32 +1,46 @@
-<%@page import="java.util.List"%>
-<%@page import="com.supinfo.sun.supcommerce.bo.SupProduct"%>
+<%@page import="java.util.List" %>
+<%@page import="com.supinfo.sun.supcommerce.bo.SupProduct" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
+<!DOCTYPE html>
+<html lang="fr">
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>Liste des produits</title>
+		<jsp:include page="/template/head.jsp">
+			<jsp:param name="pageTitle" value="Liste des produits" />
+		</jsp:include>
 	</head>
+	
 	<body>
-		<h1>Liste des produits :</h1>
+		<jsp:include page="/template/header.jsp">
+			<jsp:param name="currentPage" value="listProducts" />
+		</jsp:include>
 		
-		<a href="<%= request.getServletContext().getContextPath() %>/auth/basicInsert">Ajouter un produit</a>
-		<table>
-			<tr>
-				<th>ID</th>
-				<th>Nom</th>
-				<th>Prix</th>
-				<th>Actions</th>
-			</tr>
-			<% for(SupProduct sp : (List<SupProduct>) request.getAttribute("products")) { %>
+		<div class="container">
+			<h1 class="heading">Liste des produits :</h1>
+			
+			<a class="btn btn-info" href="${pageContext.request.contextPath}/auth/addProduct">Ajouter un produit</a>
+			<br/><br/>
+			
+			<table class="table">
 				<tr>
-					<td><%= sp.getId() %></td>
-					<td><%= sp.getName() %></td>
-					<td><%= sp.getPrice() %></td>
-					<td><a href="<%= request.getServletContext().getContextPath() %>/showProduct?id=<%= sp.getId() %>">Voir</a></td>
-				</tr>	
-			<% } %>		
-		</table>
+					<th>ID</th>
+					<th>Nom</th>
+					<th>Prix</th>
+					<th>Actions</th>
+				</tr>
+
+				<c:forEach items="${products}" var="sp">
+					<tr>
+						<td>${sp.id}</td>
+						<td>${sp.name}</td>
+						<td>${sp.price} €</td>
+						<td><a href="${pageContext.request.contextPath}/showProduct?id=${sp.id}">Voir</a></td>
+					</tr>	
+				</c:forEach>	
+			</table>
+		</div>
 	</body>
 </html>
