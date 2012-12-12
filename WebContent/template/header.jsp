@@ -30,6 +30,9 @@
 				<li class='${param.currentPage.equals("addProduct") ? "active" : ""}'>
 					<a href="${pageContext.request.contextPath}/auth/addProduct">Ajouter un produit</a>
 				</li>
+				<li class='${param.currentPage.equals("addCategory") ? "active" : ""}'>
+					<a href="${pageContext.request.contextPath}/auth/addCategory">Ajouter une catégorie</a>
+				</li>
 			</c:if>
 		</ul>
 		
