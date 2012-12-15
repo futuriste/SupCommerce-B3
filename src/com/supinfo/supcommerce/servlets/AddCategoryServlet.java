@@ -13,19 +13,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.supinfo.supcommerce.dao.CategoryDao;
+import com.supinfo.supcommerce.dao.DaoFactory;
 import com.supinfo.supcommerce.entities.Category;
 
 @WebServlet(urlPatterns = "/auth/addCategory")
 public class AddCategoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private EntityManagerFactory emf;
+	private CategoryDao categoryDao;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		
-		emf = Persistence.createEntityManagerFactory("SupCommercePU");
+		categoryDao = DaoFactory.getCategoryDao();
 	}
 	
 	@Override
@@ -41,37 +43,9 @@ public class AddCategoryServlet extends HttpServlet {
 		Category category = new Category();
 		category.setName(req.getParameter("catName"));
 		
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction t = em.getTransaction();
-		
-		try {
-			t.begin();
-			
-			em.persist(category);
-			
-			t.commit();
-			
-			req.setAttribute("message-ok", "Catégorie correctement ajoutée");
-		}
-		catch(Exception e) {
-			req.setAttribute("message-error", "Problème lors de l'ajout de la catégorie");
-		}
-		finally {
-			if(t.isActive())
-				t.rollback();
-			
-			em.close();
-		}
+		categoryDao.addCategory(category);
 		
 		RequestDispatcher rd = req.getRequestDispatcher("/auth/addCategory.jsp");
 		rd.forward(req, resp);
 	}
-
-	@Override
-	public void destroy() {
-		emf.close();
-		
-		super.destroy();
-	}
-
 }
