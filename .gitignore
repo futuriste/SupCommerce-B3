@@ -3,3 +3,6 @@
 .project
 build/
 .classpath
+nbproject/
+build.xml
+context.xml
