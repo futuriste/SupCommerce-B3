@@ -5,33 +5,37 @@
  */
 package com.supinfo.supcommerce.servlets;
 
+import com.supinfo.sun.supcommerce.bo.SupProduct;
+import com.supinfo.sun.supcommerce.doa.SupProductDao;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author alexis
  */
-@WebServlet(urlPatterns = "/login")
-public class LoginServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/auth/addProduct")
+public class AddProductServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession session = req.getSession();
+        final SupProduct sp = new SupProduct();
+        sp.setName(req.getParameter("productName"));
+        sp.setContent(req.getParameter("productContent"));
+        sp.setPrice(Float.parseFloat(req.getParameter("productPrice")));
         
-        session.setAttribute("username", req.getParameter("username"));
+        SupProductDao.addProduct(sp);
         
-        resp.sendRedirect(getServletContext().getContextPath() + "/listProducts");
+        resp.sendRedirect(getServletContext().getContextPath() + "/showProduct?id=" + sp.getId());
     }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/login.html").forward(req, resp);
+        req.getRequestDispatcher("/auth/addProduct.jsp").forward(req, resp);
     }
     
 }

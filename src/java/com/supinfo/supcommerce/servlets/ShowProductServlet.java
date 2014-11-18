@@ -8,10 +8,6 @@ package com.supinfo.supcommerce.servlets;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,25 +23,17 @@ public class ShowProductServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final PrintWriter out = resp.getWriter();
         
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Show product</title>");
-        out.println("</head>");
-        out.println("<body>");
         try {
             final Long id = Long.parseLong(req.getParameter("id"));
             final SupProduct sp = SupProductDao.findProductById(id);
             
-            out.println("<h2>" + sp.getId() + ") " + sp.getName() + " - " + sp.getPrice() + "</h2>");
+            req.setAttribute("product", sp);
+            
+            req.getRequestDispatcher("/showProduct.jsp").forward(req, resp);
         }
         catch(NumberFormatException | ArrayIndexOutOfBoundsException ex) {
-            out.println("Bad ID");
-        }
-        finally {
-            out.println("</body>");
-            out.println("</html>");
+            
         }
         
     }
