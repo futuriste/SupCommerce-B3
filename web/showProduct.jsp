@@ -14,6 +14,6 @@
     <body>
         <%@include file="/partials/header.jsp" %>
         <br/><br/>
-        <h1>${product.id}) ${product.name} - ${product.price}</h1>
+        <h1>${product.id}) ${product.name} - ${product.price} - Category : ${product.category.name}</h1>
     </body>
 </html>

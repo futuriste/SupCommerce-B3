@@ -12,6 +12,7 @@
         <title>Add a category</title>
     </head>
     <body>
+        <%@include file="/partials/header.jsp" %>
         <h1>Add a category</h1>
         
         <form action="/supcommerce/auth/addCategory" method="POST">

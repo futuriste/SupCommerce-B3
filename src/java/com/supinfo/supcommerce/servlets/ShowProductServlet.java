@@ -8,6 +8,7 @@ package com.supinfo.supcommerce.servlets;
 import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
 import com.supinfo.supcommerce.entities.Product;
+import com.supinfo.supcommerce.persistence.DaoFactory;
 import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,22 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = "/showProduct")
 public class ShowProductServlet extends HttpServlet {
-    
-    private EntityManagerFactory emf;
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        
-        emf = Persistence.createEntityManagerFactory("SupCommercePU");
-    }
-
-    @Override
-    public void destroy() {
-        super.destroy();
-        
-        emf.close();
-    }
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -47,14 +32,7 @@ public class ShowProductServlet extends HttpServlet {
         try {
             final Long id = Long.parseLong(req.getParameter("id"));
             
-            EntityManager em = emf.createEntityManager();
-            
-            System.out.println("id : " + id);
-            final Product p = em.find(Product.class, id);
-            
-            System.out.println("product : " + p);
-            
-            em.close();
+            final Product p = DaoFactory.getProductDao().findById(id);
             
             req.setAttribute("product", p);
             

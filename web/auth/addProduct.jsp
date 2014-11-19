@@ -19,6 +19,12 @@
             Name : <input type="text" name="productName" placeholder="Product name" /> <br/>
             Content : <textarea name="productContent" placeholder="Product content" cols="10" rows="5"></textarea> <br/>
             Price : <input type="text" name="productPrice" placeholder="0.0" /> <br/>
+            Category : 
+            <select name="categoryId">
+                <c:forEach items="${categories}" var="c">
+                    <option value="${c.id}">${c.name}</option>
+                </c:forEach>
+            </select><br/>
             <input type="submit" value="Add product" />
         </form>
     </body>

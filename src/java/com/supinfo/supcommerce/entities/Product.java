@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
@@ -20,6 +22,10 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "PRODUCTS")
+@NamedQueries({
+    @NamedQuery(name = "findAllProducts", query = "SELECT p FROM Product AS p"),
+    @NamedQuery(name = "findAllProductsCheaperThan", query = "SELECT p FROM Product AS p WHERE p.price < :maxPrice")
+})
 public class Product implements Serializable {
     
     @Id
@@ -67,6 +73,14 @@ public class Product implements Serializable {
 
     public void setPrice(Float price) {
         this.price = price;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
     
 }

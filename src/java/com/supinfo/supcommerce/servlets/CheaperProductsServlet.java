@@ -19,13 +19,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author alexis
  */
-@WebServlet(urlPatterns = "/listProducts")
-public class ListProductServlet extends HttpServlet {
+@WebServlet(urlPatterns = "/cheaperProducts")
+public class CheaperProductsServlet extends HttpServlet {
 
     @Override
-    protected void service(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException, IOException {
-        final List<Product> products = DaoFactory.getProductDao().findAll();
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        final List<Product> products = DaoFactory.getProductDao().findAllCheaperThan(100f);
         
+        System.out.println("products : " + products);
         req.setAttribute("products", products);
         
         req.getRequestDispatcher("/listProducts.jsp").forward(req, resp);
