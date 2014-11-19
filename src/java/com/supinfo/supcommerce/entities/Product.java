@@ -6,13 +6,12 @@
 package com.supinfo.supcommerce.entities;
 
 import java.io.Serializable;
-import java.util.List;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -20,18 +19,20 @@ import javax.persistence.Table;
  * @author alexis
  */
 @Entity
-@Table(name = "CATEGORIES")
-public class Category implements Serializable {
+@Table(name = "PRODUCTS")
+public class Product implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-    @Column(nullable = false)
     private String name;
+    private String content;
+    private Float price;
     
-    @OneToMany(mappedBy = "category")
-    private List<Product> products;
+    @ManyToOne(optional = true)
+    @JoinColumn(name = "category_fk", nullable = true)
+    private Category category;
     
     
     // Getters and setters
@@ -50,6 +51,22 @@ public class Category implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
     }
     
 }

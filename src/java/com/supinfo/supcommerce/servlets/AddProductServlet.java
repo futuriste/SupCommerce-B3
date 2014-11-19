@@ -5,9 +5,13 @@
  */
 package com.supinfo.supcommerce.servlets;
 
-import com.supinfo.sun.supcommerce.bo.SupProduct;
 import com.supinfo.sun.supcommerce.doa.SupProductDao;
+import com.supinfo.supcommerce.entities.Product;
 import java.io.IOException;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,17 +24,48 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(urlPatterns = "/auth/addProduct")
 public class AddProductServlet extends HttpServlet {
+    
+    private EntityManagerFactory emf;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        
+        emf = Persistence.createEntityManagerFactory("SupCommercePU");
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        
+        emf.close();
+    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final SupProduct sp = new SupProduct();
-        sp.setName(req.getParameter("productName"));
-        sp.setContent(req.getParameter("productContent"));
-        sp.setPrice(Float.parseFloat(req.getParameter("productPrice")));
+        final Product product = new Product();
+        product.setName(req.getParameter("productName"));
+        product.setContent(req.getParameter("productContent"));
+        product.setPrice(Float.parseFloat(req.getParameter("productPrice")));
         
-        SupProductDao.addProduct(sp);
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction t = em.getTransaction();
         
-        resp.sendRedirect(getServletContext().getContextPath() + "/showProduct?id=" + sp.getId());
+        try {
+            t.begin();
+            
+            em.persist(product);
+            
+            t.commit();
+        }
+        finally {
+            if(t.isActive())
+                t.rollback();
+            
+            em.close();
+        }
+        
+        resp.sendRedirect(getServletContext().getContextPath() + "/showProduct?id=" + product.getId());
     }
 
     @Override
