@@ -5,10 +5,15 @@
  */
 package com.supinfo.supcommerce.rest;
 
+import com.supinfo.supcommerce.entities.Product;
+import com.supinfo.supcommerce.persistence.DaoFactory;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -18,8 +23,8 @@ import javax.ws.rs.PathParam;
 public class TestWS {
     
     @GET
-    public String testGet() {
-        return "Hello from JAX-RS !";
+    public List<Product> testProducts() {
+        return DaoFactory.getProductDao().findAll();
     }
     
     

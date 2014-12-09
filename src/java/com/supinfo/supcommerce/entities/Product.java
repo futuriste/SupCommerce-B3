@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,6 +28,7 @@ import javax.persistence.Table;
     @NamedQuery(name = "findAllProducts", query = "SELECT p FROM Product AS p"),
     @NamedQuery(name = "findAllProductsCheaperThan", query = "SELECT p FROM Product AS p WHERE p.price < :maxPrice")
 })
+@XmlRootElement
 public class Product implements Serializable {
     
     @Id
@@ -43,6 +46,7 @@ public class Product implements Serializable {
     
     // Getters and setters
 
+    @XmlAttribute
     public Long getId() {
         return id;
     }

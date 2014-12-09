@@ -6,3 +6,4 @@ build/
 nbproject/
 build.xml
 context.xml
+/dist/

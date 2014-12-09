@@ -16,6 +16,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
@@ -26,7 +28,9 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "findAllCategories", query = "SELECT c FROM Category AS c")
 })
+@XmlRootElement
 public class Category implements Serializable {
+    
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,6 +45,7 @@ public class Category implements Serializable {
     
     // Getters and setters
 
+    @XmlAttribute
     public Long getId() {
         return id;
     }
